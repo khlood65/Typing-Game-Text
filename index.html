@@ -1,100 +1,160 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Typing Game....</title>
-      <style>
-        body{
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-            background-image:url('https://cdn.pixabay.com/photo/2013/05/12/18/55/balance-110850__340.jpg');
-            background-size: cover;
-            background-position: center;
-          }
-          button{
-            margin: 0 0 10px;
-            padding: 20 ;
-            color: #fff;
-            font-size: 25 px;
-          } 
-          .khl{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50% , -50%);
-          }
-          input{
-            position: relative;
-            display: inline-block;
-            font-size: 20px;
-            box-sizing: border-box;
-            transition: .5s;
-            background-color: lemonchiffon;
-            color: burlywood;
-            font-weight: bold;
-          }
-          input[type="text"]{
-            background: #fff;
-            width: 350px;
-            height: 40px;
-            border: none;
-            outline: none;
-            padding: 0 25 px;
-            text-align: center;
-            color: red;
-        }
-         .time{
-            float: left;
-        }
-        .score{
-            float: right;
-        }
-        p{
-          text-align: center;
-        }
-    </style>
+<html> 
+    <head>
+        <title>Typing Game....</title>
+           <style> 
+               body{
+                    margin: 0;
+                    padding: 0;
+                    font-family: sans-serif;
+                    background-image: url('https://th.bing.com/th/id/R.04850d5838932d747c1d29e31e359ad9?rik=XvU525JkfeD1Tw&pid=ImgRaw&r=0');                    background-size: cover;
+                    background-position: center;
+                    height: 100vh;
+            } 
+            .name{
+                color: rgb(20, 20, 18);
+                padding:  20px;
+                font-size: 25px;
+                text-align: center;
+                font-weight: bold;
+            }
+            .start{
+                font-size: 20 px;
+                font-weight: bold;
+                text-align: center;
+                background-color: aquamarine;
+                color: floralwhite;
+                padding: 29px;
+                cursor: pointer;
+            }
+            .input{
+                margin: 15px 0 ;
+                width: 100%;
+                display: block;
+                padding: 15px;
+                border: 8 px solid;
+                font-family: 20px;
+                text-align: center;
+                text-transform: capitalize;
+                border-radius: 6px;
+            }
+            p{
+                text-align: center;
+                font-size: 40 px;
+                font-weight: bold;
+                color: rgb(20, 20, 18);
+            }
+            .input :focus{
+                outline: none;
+            }
+            .control{
+              display: flex;
+              justify-content: space-between;
+              background-color:white;
+              padding: 15px;
+            }
+            .control span {
+                font-weight: bold;
+                color: rgb(16, 218, 16);
+            } 
+            .finish{
+                font-weight: bold;
+                font-size: 40px;
+                text-align: center;
+                padding: 10px;
+                color:red;
+            }   
+            .EndFinish{
+                font-weight: bold;
+                font-size: 40px;
+                text-align: center;
+                padding: 5 px;
+                color:red;
+            }
+            .wordLenght{
+                font-weight: bold;
+                font-size: 50px;
+                text-align: center;
+                padding: 5 px;
+                color:red; 
+            }
+           </style>
     </head>
     <body>
-         <div class="khl">
-            <form>
-                <button>Start</button>
-                <br>
-                <P id="result"></P>
-                 <input type="text" id="INPut" placeholder="Start typing...">
-                 <br><br>
-                 <h3 class="time"  id="time">Time :: 0</h3>
-                 <h3 class="score" id="score"> Score :: 0 </h3>
-            </form>
-         </div>
-         <script>
-         var time= document.getElementById("time");
-          var score = document.getElementById("score");
-              score = 0 ;
-          var Words = ["JavaScript", "Html", "css", "variables", "Arrays" ,
+         <div class="name"> Typing Game Text .</div>
+                 <div class="start"> Start playing</div>
+                 <p id="result"> </p>
+                  <input type="text" class="input" placeholder="Start typing..."/>
+                  <div class="control">
+                    <div class="time"> Time Left : <span id="time" >30</span> seconds</div>
+                    <div class="score">Score : <span id="score" class="got">0</span>
+                       From <span class="total"></span>
+                    </div>
+                 </div>
+              <div class="finish"> <p id="finish"></p></div>
+              <div class="EndFinish"><p id="EndFinish"></p></div>
+              <div class="wordLenght"> <p id="wordLenght"></p></div>
+           
+       <script>
+               var Words = ["JavaScript", "Html", "css", "variables", "Arrays" ,
         "Operators" ,"Subtraction" , "Object" ,"Function" , "Parameter"
-         ,"Properties" ];
-               var  input = document.getElementById('input');
-               var result = document.getElementById('result');
-               function randomWord(){
-             var  item =[( Math.floor(Math.random() * (Words.length)))]; 
+         ,"Properties" ,"statue" ,"joke" , "developer","runaway","Hero","hat",
+        "lucky" , "Magic" ,"space" ,"Definition","Siblings" ,"Master" , "Echo" 
+        ,"Saab", "Volvo","Banana", "Orange", "Apple", "Mango", ,
+        "Orange" ,"Plum","BMW", "Volvo", "BMW", "Ford", "Mazda","score" , "time"
+         ,"System" , "Namespace","provides","pointer","index" , "result" ,
+        "Console" ,"ReadKey" ,"important" , "simplest"];
+          
+         let seconds =  30 ; 
+         let startbutton = document.querySelector(".start");
+         let input = document.querySelector(".input");
+         let result = document.getElementById("result");
+         let wordLenght = document.getElementById("wordLenght"); 
+         let time = document.getElementById("time");
+         let Score = document.getElementById("score");
+         let control = document.querySelector(".control");
+         let Total = document.querySelector(".score .total");
+          let timer ; 
+          let sco = 0 ;
+          Total.innerHTML=Words.length;
+         startbutton.onclick = function(){
+                this.remove();
+                input.focus();
+                randomWord() ; 
+                input.addEventListener("input",matchword);
+                 timer = setInterval(Time, 1000);
+                 
+              }
+
+              function randomWord(){
+             var  item =( Math.floor(Math.random() * (Words.length))); 
                 document.getElementById("result").innerHTML = Words[item] ;
-                       return Words[item] ; 
+                   }
+                   function matchword(){
+                    if( input.value=== (result.innerHTML)){
+                        sco ++ ; 
+                        Score.innerHTML=sco ; 
+                        input.value = ''; 
+                        randomWord();
+                    }
+                   }
+                    function Time (){
+                        seconds -- ;
+                        time.innerHTML = seconds ;
+                        if(seconds===0){
+                            clearInterval(timer);
+                            finish();
                         }
-               INPut.addEventListener('input', function () {
-                         if (input = this.value){
-                             randomWord();
-                             return word[item+1] ;
-                             input.value='';
-                             score ++ ;
-                         }
-                        });
-               
-                 const mytime = setTimeout(myfunc , 100000);
-                      function myfunc(){
-                     alert("This game is over") ;
-               }
-             
-          </script >
-    </body>
+                    }
+              function finish() {
+                    input.remove(); 
+                    control.remove();
+                    result.remove();
+                    document.getElementById("finish").innerHTML="Game-Over"; 
+                    document.getElementById("EndFinish").innerHTML=sco;
+                    document.getElementById("wordLenght").innerHTML=Words.length;
+                    }
+        </script>
+ </body>
 </html>
-    
+     
